@@ -17,11 +17,11 @@ for (let i = 0; i < 10; i++) {
 }
 
 function giovanni(a, b) {
-  silvio("Piersilvio");
+  forseSilvio("Piersilvio");
   return a + b;
 }
 
-function silvio(a) {
+function forseSilvio(a) {
   return "pronto: " + a;
 }
 
