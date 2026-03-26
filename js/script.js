@@ -1,33 +1,28 @@
-// toboo List Form 
-const toboolistForm = document.querySelector('.toboolistForm');
+// toboo List Form
+const toboolistForm = document.querySelector(".toboolistForm");
 
 let sum = 0;
 for (let i = 0; i < 10; i++) {
+  console.log("ciao");
 
-    console.log('ciao')
+  giovanni(2, 3);
 
-    giovanni(2, 3)
+  fetch("https://jsonplaceholder.typicode.com/todos/1")
+    .then((response) => response.json())
+    .then((json) => console.log(json));
 
-    fetch('https://jsonplaceholder.typicode.com/todos/1')
-        .then(response => response.json())
-        .then(json => console.log(json))
+  sum = i + 2;
 
-    sum = i + 2;
-
-    console.log(sum);
+  console.log(sum);
 }
 
 function giovanni(a, b) {
-    sirio("Piersilvio")
-    return a + b;
+  silvio("Piersilvio");
+  return a + b;
 }
 
-
-
-function sirio(a) {
-
-
-    return "pronto: " + a;
+function silvio(a) {
+  return "pronto: " + a;
 }
 
 /* Non Live
@@ -37,75 +32,76 @@ function sirio(a) {
 // const tobooItemsLive = document.getElementsByClassName('list-group-item');
 // console.log(tobooItemsLive) */
 
+toboolistForm.addEventListener("submit", function (e) {
+  e.preventDefault();
 
-toboolistForm.addEventListener('submit', function (e) {
-    e.preventDefault();
+  const toboolistTask = toboolistForm.querySelector(".toboolistTask"); // Input Task
+  const tobooItemsList = document.querySelector(".tobooItems"); // List
 
-    const toboolistTask = toboolistForm.querySelector('.toboolistTask'); // Input Task
-    const tobooItemsList = document.querySelector('.tobooItems'); // List 
+  // Creao il to do
+  const liElement = createTodo(toboolistTask, tobooItemsList);
 
-    // Creao il to do
-    const liElement = createTodo(toboolistTask, tobooItemsList);
+  // Funzione per completare
+  completeTodo(liElement);
 
-    // Funzione per completare
-    completeTodo(liElement)
-
-    // Funzione per elimanare
-    deleteTodo(liElement)
+  // Funzione per elimanare
+  deleteTodo(liElement);
 });
 
 /**
  * Create a todo and retun the DOM element
- * @param {Element} toboolistTask 
- * @param {Element} tobooItemsList 
+ * @param {Element} toboolistTask
+ * @param {Element} tobooItemsList
  * @returns {Element} The todo item
  */
 function createTodo(toboolistTask, tobooItemsList) {
-    // const tobooTask = toboolistTask.value.replace(/[^a-z0-9áéíóúñü /:\.,_-]/gim, "");
-    const tobooTask = toboolistTask.value;
+  // const tobooTask = toboolistTask.value.replace(/[^a-z0-9áéíóúñü /:\.,_-]/gim, "");
+  const tobooTask = toboolistTask.value;
 
-    // Creo: <li></li>
-    const liElement = document.createElement("li");
-    const classLists = 'list-group-item list-group-item-action d-flex justify-content-between';
-    liElement.classList.add(...classLists.split(' '));
-    liElement.innerText = tobooTask;
-    liElement.innerHTML += '<span href="" class="tobooItemDelete bg-danger p-2">Elimina</span>';
-    tobooItemsList.append(liElement);
+  // Creo: <li></li>
+  const liElement = document.createElement("li");
+  const classLists =
+    "list-group-item list-group-item-action d-flex justify-content-between";
+  liElement.classList.add(...classLists.split(" "));
+  liElement.innerText = tobooTask;
+  liElement.innerHTML +=
+    '<span href="" class="tobooItemDelete bg-danger p-2">Elimina</span>';
+  tobooItemsList.append(liElement);
 
-    return liElement;
+  return liElement;
 }
 
 /**
  * Complete a todo by adding a class line-trough
- * @param {Element} liElement 
- * @returns {Boolean} 
+ * @param {Element} liElement
+ * @returns {Boolean}
  */
 function completeTodo(liElement) {
-    liElement.addEventListener('click', function (e) {
-        e.preventDefault();
+  liElement.addEventListener("click", function (e) {
+    e.preventDefault();
 
-        liElement.classList.toggle('text-decoration-line-through');
-    });
+    liElement.classList.toggle("text-decoration-line-through");
+  });
 
-    return true;
+  return true;
 }
 
 /**
  * Delete To Do
- * @param {Element} liElement 
- * @returns {Boolean} 
+ * @param {Element} liElement
+ * @returns {Boolean}
  */
 function deleteTodo(liElement) {
-    // Logica per eliminare
-    const tobooItemDelete = liElement.querySelector('.tobooItemDelete');
+  // Logica per eliminare
+  const tobooItemDelete = liElement.querySelector(".tobooItemDelete");
 
-    tobooItemDelete.addEventListener('click', function (e) {
-        e.stopPropagation()
-        e.preventDefault();
-        console.log(e);
+  tobooItemDelete.addEventListener("click", function (e) {
+    e.stopPropagation();
+    e.preventDefault();
+    console.log(e);
 
-        liElement.remove();
-    });
+    liElement.remove();
+  });
 
-    return true;
+  return true;
 }
